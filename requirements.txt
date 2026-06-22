@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+scikit-learn
+tensorflow
+joblib
+python-dotenv
+google-genai
+datasets
+nltk
+huggingface-hub
