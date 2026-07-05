@@ -1,6 +1,5 @@
 import pandas as pd
 import joblib
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
@@ -21,13 +20,21 @@ y_train = train_df["queue_encoded"]
 y_test = test_df["queue_encoded"]
 
 # TF-IDF
-vectorizer = TfidfVectorizer(max_features=5000)
-
+vectorizer = TfidfVectorizer(
+    max_features=20000,
+    ngram_range=(1, 3),
+    min_df=2,
+    max_df=0.95
+)
 X_train_tfidf = vectorizer.fit_transform(X_train)
 X_test_tfidf = vectorizer.transform(X_test)
 
 # SVM Model
-model = LinearSVC()
+model = LinearSVC(
+    C=20,
+    class_weight="balanced",
+    max_iter=10000
+)
 
 # Train
 model.fit(X_train_tfidf, y_train)
